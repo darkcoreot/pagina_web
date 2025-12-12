@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog de Tatuajes</title>
+    <link rel="stylesheet" href="/static/styles.css">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const adj = document.getElementById("adjunto");
+            const pregunta = document.getElementById("personalizadoPregunta");
+            const personalizado = document.getElementById("personalizado");
+            const tematica = document.getElementById("tematicaBox");
+
+            adj.addEventListener("change", () => {
+                if (adj.files.length === 0) {
+                    pregunta.style.display = "block";
+                } else {
+                    pregunta.style.display = "none";
+                    tematica.style.display = "none";
+                    personalizado.value = "";
+                }
+            });
+
+            personalizado.addEventListener("change", () => {
+                if (personalizado.value === "si") {
+                    tematica.style.display = "block";
+                } else {
+                    tematica.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+<header>
+    <nav class="menu">
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="#">Diseños</a></li>
+            <li><a href="#">Artistas</a></li>
+            <li><a href="#formulario">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<h1 class="titulo">Galería de Tatuajes</h1>
+
+<div class="scroll-fotos">
+    <img src="/static/img1.jpg">
+    <img src="/static/img2.jpg">
+    <img src="/static/img3.jpg">
+    <img src="/static/img4.jpg">
+</div>
+
+<br><br>
+
+<h2 id="formulario" class="titulo">Contacto</h2>
+
+<form action="/contacto" method="POST" enctype="multipart/form-data">
+
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required>
+
+    <label>Correo:</label>
+    <input type="email" name="correo" required>
+
+    <label>Ciudad:</label>
+    <input type="text" name="ciudad" required>
+
+    <label>Adjunta tu diseño (opcional):</label>
+    <input type="file" id="adjunto" name="adjunto" accept="image/*">
+
+    <div id="personalizadoPregunta" style="display:none;">
+        <label>¿Deseas un diseño personalizado?</label>
+        <select id="personalizado" name="personalizado">
+            <option value="">Seleccione...</option>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+    </div>
+
+    <div id="tematicaBox" style="display:none;">
+        <label>¿Qué temática deseas?</label>
+        <textarea name="tematica" rows="3"></textarea>
+    </div>
+
+    <button type="submit">Enviar</button>
+
+</form>
+
+</body>
+</html>
